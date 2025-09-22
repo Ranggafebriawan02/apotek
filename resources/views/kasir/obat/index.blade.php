@@ -21,7 +21,7 @@
                 <thead class="table-light text-center">
                     <tr>
                         <th>No</th>
-                        <th>Nama a</th>
+                        <th>Nama </th>
                         <th>Kategori</th>
                         <th>Stok</th>
                         <th>Harga</th>
