@@ -47,12 +47,21 @@ Route::prefix('master')
 Route::prefix('admin')
     ->name('admin.')
     ->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
         Route::resource('obat', AdminObatController::class);
         // Halaman create obat kasir (terpisah)
-
+        Route::resource('penjualan', PenjualanController::class);
         Route::resource('supplier', SupplierController::class);
-        Route::resource('pembelian', PembelianController::class);
-        Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+
+
+        // Route::resource('supplier', SupplierController::class);
+        // Route::resource('pembelian', PembelianController::class);
+        // Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+
+        //tampilan static
+        // Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+        Route::view('/transaksi', 'admin.transaksi')->name('transaksi');
+        Route::view('/laporan', 'admin.laporan')->name('laporan');
     });
 
 /*
@@ -60,23 +69,23 @@ Route::prefix('admin')
 | Kasir Routes
 |--------------------------------------------------------------------------
 */
-Route::prefix('kasir')
-    ->name('kasir.')
-    ->group(function () {
-        // CRUD Obat kasir
-        Route::resource('obat', KasirObatController::class);
+// Route::prefix('kasir')
+//     ->name('kasir.')
+//     ->group(function () {
+//         // CRUD Obat kasir
+//         Route::resource('obat', KasirObatController::class);
 
-        // CRUD Penjualan kasir
-        Route::resource('penjualan', PenjualanController::class);
+//         // CRUD Penjualan kasir
+//         Route::resource('penjualan', PenjualanController::class);
 
-        // Cetak struk
-        Route::get('struk/{id}', [StrukController::class, 'cetak'])->name('struk.cetak');
+//         // Cetak struk
+//         Route::get('struk/{id}', [StrukController::class, 'cetak'])->name('struk.cetak');
 
-        // Halaman static
-        Route::view('/dashboard', 'kasir.dashboard')->name('dashboard');
-        Route::view('/transaksi', 'kasir.transaksi')->name('transaksi');
-        Route::view('/laporan', 'kasir.laporan')->name('laporan');
-    });
+//         // Halaman static
+//         Route::view('/dashboard', 'kasir.dashboard')->name('dashboard');
+//         Route::view('/transaksi', 'kasir.transaksi')->name('transaksi');
+//         Route::view('/laporan', 'kasir.laporan')->name('laporan');
+//     });
 
 /*
 |--------------------------------------------------------------------------

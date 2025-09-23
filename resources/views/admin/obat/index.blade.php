@@ -1,4 +1,4 @@
-@extends('layouts.kasir')
+@extends('layouts.admin')
 
 @section('title', 'Obat')
 
@@ -6,7 +6,7 @@
 <div class="content flex-grow-1">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold mb-0">@yield('title')</h2>
-        <a href="{{ route('kasir.obat.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.obat.create') }}" class="btn btn-primary">
             <i class="bi bi-plus-circle"></i> Tambah Obat
         </a>
     </div>
@@ -21,11 +21,12 @@
                 <thead class="table-light text-center">
                     <tr>
                         <th>No</th>
-                        <th>Nama </th>
+                        <th>Nama</th>
                         <th>Kategori</th>
                         <th>Stok</th>
                         <th>Harga</th>
                         <th>Exp Date</th>
+                        <th>Supplier</th> {{-- tambahan --}}
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -37,12 +38,13 @@
                         <td>{{ $obat->kategori }}</td>
                         <td>{{ $obat->stok }}</td>
                         <td>Rp {{ number_format($obat->harga, 0, ',', '.') }}</td>
-                        <td>{{ $obat->exp_date ? $obat->exp_date->format('d-m-Y') : '-' }}</td>
+                        <td>{{ $obat->exp_date ? \Carbon\Carbon::parse($obat->exp_date)->format('d-m-Y') : '-' }}</td>
+                        <td>{{ $obat->supplier?->nama ?? '-' }}</td> {{-- relasi supplier --}}
                         <td class="text-center">
-                            <a href="{{ route('kasir.obat.edit', $obat->id_obat) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ route('admin.obat.edit', $obat->id_obat) }}" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <form action="{{ route('kasir.obat.destroy', $obat->id_obat) }}" method="POST" class="d-inline">
+                            <form action="{{ route('admin.obat.destroy', $obat->id_obat) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus obat ini?')">
@@ -53,7 +55,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center text-muted">Belum ada data obat</td>
+                        <td colspan="8" class="text-center text-muted">Belum ada data obat</td>
                     </tr>
                     @endforelse
                 </tbody>

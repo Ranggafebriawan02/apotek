@@ -2,27 +2,92 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - @yield('title')</title>
+    <title>@yield('title') - Aplikasi Apotek</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        /* Sidebar Styling */
+        .sidebar {
+            min-height: 100vh;
+            background-color: #009688; /* hijau tosca */
+            color: #fff;
+        }
+
+        .sidebar h4 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar .nav-link {
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 5px 0;
+            transition: background 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #00796b; /* tosca lebih gelap saat hover */
+            color: #fff;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: #00695c; /* tosca tua untuk menu aktif */
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <div class="bg-dark text-white p-3" style="width: 220px; min-height: 100vh;">
-            <h4 class="mb-4">Apotek Kita</h4>
-            <ul class="nav flex-column">
-                <li class="nav-item"><a href="{{ url('/admin/dashboard') }}" class="nav-link text-white"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-                <li class="nav-item"><a href="{{ url('/admin/obat') }}" class="nav-link text-white"><i class="bi bi-capsule"></i> Obat</a></li>
-                <li class="nav-item"><a href="{{ url('/admin/penjualan') }}" class="nav-link text-white"><i class="bi bi-cart4"></i> Penjualan</a></li>
-                <li class="nav-item"><a href="{{ url('/admin/laporan') }}" class="nav-link text-white"><i class="bi bi-bar-chart"></i> Laporan</a></li>
-            </ul>
-        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 sidebar py-4">
+                <!-- Header Sidebar -->
+                <h4>
+                    <i class="bi bi-hospital me-2"></i> Apotek Kita admin
+                </h4>
 
-        <!-- Content -->
-        <div class="flex-grow-1 p-4">
-            @yield('content')
+                <!-- Menu Sidebar -->
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                            <i class="bi bi-house-door-fill me-2"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.obat.index') }}" class="nav-link">
+                            <i class="bi bi-capsule-pill me-2"></i> Obat
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.supplier.index') }}" class="nav-link">
+                            <i class="bi bi-truck me-2"></i> Supplier
+                        </a>
+                    </li>
+
+                     <li class="nav-item">
+                        <a href="{{ route('admin.penjualan.index') }}" class="nav-link">
+                            <i class="bi bi-cash-stack me-2"></i> Penjualan
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.laporan') }}" class="nav-link">
+                            <i class="bi bi-file-earmark-bar-graph-fill me-2"></i> Laporan
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto px-4 py-4">
+                @yield('content')
+            </main>
         </div>
     </div>
 </body>
